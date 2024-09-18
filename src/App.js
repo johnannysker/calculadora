@@ -8,16 +8,19 @@ const App = () => {
   const [firstNumber, setFirstNumber] = useState(0);
   const [operation, setOperation] = useState('');
 
+  //Adicionar numero
   const handleAddNumber = (number) => {
       setCurrrentNumber(prev => `${prev === '0' ? '' : prev}${number}`);
   }
 
+  //limpar display e operações
   const handleOnClear = () => {
       setCurrrentNumber('0')
       setFirstNumber('0')
       setOperation('')
   };
 
+  //Operação de soma
   const handleSumNumbers = () => {
     if(firstNumber === '0'){
       setFirstNumber(String(currentNumber));
@@ -30,11 +33,60 @@ const App = () => {
     }
   }
 
+  //Operação de subtração
+  const handleMinusNumbers = () => {
+    if(firstNumber === '0'){
+      setFirstNumber(String(currentNumber));
+      setCurrrentNumber('0')
+      setOperation('-')
+    }else{
+      const sub = Number(firstNumber) - Number(currentNumber);
+      setCurrrentNumber(String(sub))
+      setOperation('')
+    }
+  }
+
+  //Operação de divisão
+  const handleDivNumbers = () => {
+    if(firstNumber === '0'){
+      setFirstNumber(String(currentNumber));
+      setCurrrentNumber('0')
+      setOperation('/')
+    }else{
+      const div = Number(firstNumber) / Number(currentNumber);
+      setCurrrentNumber(String(div))
+      setOperation('')
+    }
+  }
+
+  //Operação de multiplicar
+  const handleMulNumbers = () => {
+    if(firstNumber === '0'){
+      setFirstNumber(String(currentNumber));
+      setCurrrentNumber('0')
+      setOperation('x')
+    }else{
+      const mul = Number(firstNumber) * Number(currentNumber);
+      setCurrrentNumber(String(mul))
+      setOperation('')
+    }
+  }
+
+  //Operação de resultado
   const handleEquals = () => {
     if(firstNumber !== '0' && operation !== '' && currentNumber !== '0'){
       switch(operation){
         case '+':
           handleSumNumbers();
+          break;
+        case '-':
+          handleMinusNumbers();
+          break;
+        case '/':
+          handleDivNumbers();
+          break;
+        case 'x':
+          handleMulNumbers();
           break;
         default:
           break;
@@ -42,27 +94,28 @@ const App = () => {
     }
   }
 
+  //Estrutura da calculadora
   return (
     <Container>
       <Content>
         <Input value={currentNumber}/>
         <Row>
           <Button label="C" onclick={handleOnClear}/>
-          <Button label="<" onclick={() => handleAddNumber('<')}/>
+          <Button label="N²" onclick={() => handleAddNumber('')}/>
           <Button label="%" onclick={() => handleAddNumber('%')}/>
-          <Button label="/" onclick={() => handleAddNumber('/')}/>
+          <Button label="/" onclick={handleDivNumbers}/>
         </Row>
         <Row>
           <Button label="7" onclick={() => handleAddNumber('7')}/>
           <Button label="8" onclick={() => handleAddNumber('8')}/>
           <Button label="9" onclick={() => handleAddNumber('9')}/>
-          <Button label="x" onclick={() => handleAddNumber('x')}/>
+          <Button label="x" onclick={handleMulNumbers}/>
         </Row>
         <Row>
           <Button label="4" onclick={() => handleAddNumber('4')}/>
           <Button label="5" onclick={() => handleAddNumber('5')}/>
           <Button label="6" onclick={() => handleAddNumber('6')}/>
-          <Button label="-" onclick={() => handleAddNumber('-')}/>
+          <Button label="-" onclick={handleMinusNumbers}/>
         </Row>
         <Row>
           <Button label="1" onclick={() => handleAddNumber('1')}/>
@@ -71,9 +124,9 @@ const App = () => {
           <Button label="+" onclick={handleSumNumbers}/>
         </Row>
         <Row>
-          <Button label="N²" onclick={() => handleAddNumber('N²')}/>
+          <Button label="<" onclick={() => handleAddNumber('')}/>
           <Button label="0" onclick={() => handleAddNumber('0')}/>
-          <Button label="," onclick={() => handleAddNumber(',')}/>
+          <Button label="." onclick={() => handleAddNumber('.')}/>
           <Button label="=" onclick={handleEquals}/>
         </Row>
       </Content>
