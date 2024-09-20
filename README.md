@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Calculadora simples
+
+Projeto de uma calculadora, para verificação de conhecimento em componentes no React.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

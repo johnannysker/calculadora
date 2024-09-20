@@ -72,6 +72,34 @@ const App = () => {
     }
   }
 
+  //Operação de potencia
+  const handlePowNumbers = () => {
+    if(firstNumber === '0'){
+      setFirstNumber(String(currentNumber));
+      setCurrrentNumber('0')
+      setOperation('n')
+    }else{
+      const pot = Math.pow(Number(firstNumber), Number(currentNumber));
+      setCurrrentNumber(String(pot));
+      setOperation('')
+    }
+  }
+
+  //Operação de porcentagem
+  const handlePerNumbers = () => {
+    if(firstNumber === '0'){
+      setFirstNumber(String(currentNumber));
+      setCurrrentNumber('0')
+      setOperation('%')
+    }else{
+      var percent = Number(firstNumber) / 100;
+      var total = Number(currentNumber) - (percent * Number(currentNumber));
+      const perc = Number(currentNumber) - total;
+      setCurrrentNumber(String(perc.toFixed(2)))
+      setOperation('')
+    }
+  }
+
   //Operação de resultado
   const handleEquals = () => {
     if(firstNumber !== '0' && operation !== '' && currentNumber !== '0'){
@@ -88,6 +116,12 @@ const App = () => {
         case 'x':
           handleMulNumbers();
           break;
+        case '%':
+          handlePerNumbers();
+          break;
+        case 'n':
+          handlePowNumbers();
+          break;
         default:
           break;
       }
@@ -101,8 +135,8 @@ const App = () => {
         <Input value={currentNumber}/>
         <Row>
           <Button label="C" onclick={handleOnClear}/>
-          <Button label="N²" onclick={() => handleAddNumber('')}/>
-          <Button label="%" onclick={() => handleAddNumber('%')}/>
+          <Button label="n²" onclick={handlePowNumbers}/>
+          <Button label="%" onclick={handlePerNumbers}/>
           <Button label="/" onclick={handleDivNumbers}/>
         </Row>
         <Row>
@@ -124,7 +158,7 @@ const App = () => {
           <Button label="+" onclick={handleSumNumbers}/>
         </Row>
         <Row>
-          <Button label="<" onclick={() => handleAddNumber('')}/>
+          <Button label="¨" onclick={() => handleAddNumber('')}/>
           <Button label="0" onclick={() => handleAddNumber('0')}/>
           <Button label="." onclick={() => handleAddNumber('.')}/>
           <Button label="=" onclick={handleEquals}/>
